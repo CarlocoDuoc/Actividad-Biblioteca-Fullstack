@@ -28,4 +28,18 @@ public class LibroService {
         libroRepository.eliminar(id);
         return "producto eliminado";
     }
+
+    //actividad 1.2.3
+    public int totalLibros(){
+        return libroRepository.obtenerLibros().size();
+    }
+
+    public int totalLibrosV2(){
+        return libroRepository.totalLibros();
+    }
+    
+    // Cambia 'int' por 'Libro' y agrega el parámetro 'String isbn'
+    public Libro buscarPorIsbn(String isbn) {
+        return libroRepository.buscarPorIsbn(isbn);
+    }
 }

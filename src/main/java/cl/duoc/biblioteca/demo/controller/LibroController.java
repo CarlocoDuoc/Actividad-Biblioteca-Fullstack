@@ -38,15 +38,4 @@ public class LibroController {
     public String deleteLibro(@PathVariable int id){
         return libroService.deleteLibro(id);
     }
-    //actividad 1.2.3
-    @GetMapping("/total")
-    public int totalLibros(){
-        return libroService.totalLibrosV2();
-    }
-
-    // 1. Buscar por ISBN (Ejemplo: http://localhost:8080/libros/buscar/9780132350884)
-    @GetMapping("/buscar/{isbn}")
-    public Libro buscarPorIsbn(@PathVariable String isbn) {
-        return libroService.buscarPorIsbn(isbn);
-    }
 }

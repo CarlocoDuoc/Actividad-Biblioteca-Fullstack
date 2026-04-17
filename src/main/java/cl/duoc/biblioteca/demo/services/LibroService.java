@@ -2,11 +2,9 @@ package cl.duoc.biblioteca.demo.services;
 
 import cl.duoc.biblioteca.demo.model.Libro;
 import cl.duoc.biblioteca.demo.repository.LibroRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
 
 @Service
 public class LibroService {

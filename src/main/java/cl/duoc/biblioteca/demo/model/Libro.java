@@ -1,9 +1,6 @@
 package cl.duoc.biblioteca.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity // <--- CRUCIAL: Indica que esta clase es una tabla de BD
+@Table(name = "libros")
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "isbn", nullable = false, length = 20)
+    @Column(name = "isbn", nullable = false, length = 20, unique = true)
     private String isbn;
 
     @Column(name = "titulo", nullable = false, length = 200)
@@ -25,9 +24,10 @@ public class Libro {
     @Column(name = "editorial", nullable = false, length = 200)
     private String editorial;
 
-    @Column(name = "fechaPublicacion", nullable = false)
+    @Column(name = "fecha_publicacion", nullable = false)
     private int fechaPublicacion;
 
     @Column(name = "autor", nullable = false, length = 150)
     private String autor;
+
 }

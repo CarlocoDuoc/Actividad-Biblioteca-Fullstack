@@ -17,9 +17,16 @@ public class LibroController {
     private LibroService libroService;
 
     // Obtener todos los libros O filtrar por autor si viene el parámetro ?autor=...
+    
+    
+    //@GetMapping
+    //public List<Libro> getLibros(){
+    //    return libroService.getLibros();
+    //}
+
     @GetMapping
-    public List<Libro> getLibros(@RequestParam(required = false) String autor){
-        if (autor != null && !autor.isEmpty()) {
+    public List<Libro> getLibros(@RequestParam(name = "autor", required = false) String autor) {
+        if (autor == null || autor.isEmpty()) {
             return libroService.buscarPorAutor(autor);
         }
         return libroService.getLibros();
@@ -31,7 +38,7 @@ public class LibroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Libro> getLibroId(@PathVariable int id){
+    public ResponseEntity<Libro> getLibroId(@PathVariable(name = "id") int id){
         Libro libro = libroService.getLibroId(id);
         if (libro != null) {
             return ResponseEntity.ok(libro);
@@ -41,7 +48,7 @@ public class LibroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Libro> updateLibro(@PathVariable int id, @RequestBody Libro libro){
+    public ResponseEntity<Libro> updateLibro(@PathVariable(name = "id") int id, @RequestBody Libro libro){
         // Verificamos si existe antes de actualizar
         if (libroService.getLibroId(id) != null) {
             libro.setId(id); // Aseguramos que se actualice el ID correcto
@@ -51,7 +58,7 @@ public class LibroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLibro(@PathVariable int id){
+    public ResponseEntity<String> deleteLibro(@PathVariable(name = "id") int id){
         boolean eliminado = libroService.deleteLibro(id);
         if (eliminado) {
             return ResponseEntity.ok("Libro eliminado correctamente");

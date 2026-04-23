@@ -19,6 +19,5 @@ public interface LibroRepository extends JpaRepository<Libro, Integer> {
 
     // Métodos custom (Spring Data JPA los implementa automáticamente)
     Optional<Libro> findByIsbn(String isbn);
-
     List<Libro> findByAutorContainingIgnoreCase(String autor);
 }

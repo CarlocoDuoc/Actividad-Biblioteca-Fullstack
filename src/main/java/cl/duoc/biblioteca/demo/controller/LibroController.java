@@ -20,7 +20,6 @@ public class LibroController {
     @GetMapping
     public List<Libro> getLibros(@RequestParam(required = false) String autor){
         if (autor != null && !autor.isEmpty()) {
-            // Llama al método de búsqueda que definimos en el Service
             return libroService.buscarPorAutor(autor);
         }
         return libroService.getLibros();

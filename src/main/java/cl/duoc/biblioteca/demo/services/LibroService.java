@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient; // <--- IMPORTANTE
 
+import cl.duoc.biblioteca.demo.dto.PokemonDTO; // <--- IMPORTANTE
 import cl.duoc.biblioteca.demo.model.Libro;
 import cl.duoc.biblioteca.demo.repository.LibroRepository;
 
@@ -13,6 +15,9 @@ public class LibroService {
 
     @Autowired
     private LibroRepository libroRepository;
+
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     public List<Libro> getLibros(){
         return libroRepository.findAll();
@@ -41,5 +46,19 @@ public class LibroService {
 
     public List<Libro> buscarPorAutor(String autor) {
         return libroRepository.findByAutorContainingIgnoreCase(autor);
+    }
+
+    public PokemonDTO obtenerPokemon(String nombre) {
+        System.out.println("Buscando a: " + nombre); // Log de control
+    
+        PokemonDTO resultado = webClientBuilder.build()
+                .get()
+                .uri("https://pokeapi.co/api/v2/pokemon/" + nombre.toLowerCase())
+                .retrieve()
+                .bodyToMono(PokemonDTO.class)
+                .block();
+
+        System.out.println("Resultado obtenido: " + resultado); // Ver en consola si trae datos
+        return resultado;
     }
 }
